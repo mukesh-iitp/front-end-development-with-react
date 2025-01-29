@@ -19,12 +19,22 @@
         let score = 0;
         let wicket = 0;
 
+        // function oneClick(){
+        //     alert("1 is clicked")
+        // }
+
+        function addOne(){
+            score += 1;
+            // console.log(score);
+            rootElement.render(<App />);
+        }
+
         const App = () => (
             <>
             <h1>Score Keeper</h1>
             <h2>Score: {score}/{wicket}</h2>
             <div>
-                <button>1</button>
+                <button onClick={addOne}>1</button>
                 <button>2</button>
                 <button>3</button>
                 <button>4</button>
