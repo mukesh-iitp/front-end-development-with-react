@@ -1,0 +1,36 @@
+table{
+    border-color: black;
+    border-style: double;
+    border-radius: 10px;
+    border-width: 2px;
+    border-collapse: collapse;
+}
+
+th{
+    /* border: 1px solid brown; */
+    border: 0px;
+    border-bottom: 1px;
+    border-right: 1px;
+    border-style: solid;
+    background-color: aquamarine;
+}
+
+td{
+    /* border: 1px solid brown; */
+    border: 0px;
+    border-bottom: 1px;
+    border-right: 1px;
+    border-style: solid;
+}
+
+h1{
+    color: blue;
+}
+
+img{
+    width: 30px;
+}
+
+h2{
+    color: darkgreen;
+}
