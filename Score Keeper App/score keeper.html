@@ -53,19 +53,26 @@
             }
         }
 
-        const App = () => (
-            <>
-            <h1>Score Keeper</h1>
-            <h2>Score: {score}/{wicket}</h2>
+        const ScoreButtons = () =>(
             <div>
-                <button onClick={addOne}>1</button>
-                <button onClick={addTwo}>2</button>
+                {/*<button onClick={addOne}>1</button>*/}
+                {/*<button onClick={addTwo}>2</button>*/}
+                <button onClick={()=>addScore(0)}>0</button>
+                <button onClick={()=>addScore(1)}>1</button>
+                <button onClick={()=>addScore(2)}>2</button>
                 <button onClick={()=>addScore(3)}>3</button>
                 <button onClick={()=>addScore(4)}>4</button>
                 <button onClick={()=>addScore(5)}>5</button>
                 <button onClick={()=>addScore(6)}>6</button>
                 <button onClick={addWicket}>Wicket</button>
             </div>
+        )
+
+        const App = () => (
+            <>
+            <h1>Score Keeper</h1>
+            <h2>Score: {score}/{wicket}</h2>
+            <ScoreButtons/>
             </>
         )
 
