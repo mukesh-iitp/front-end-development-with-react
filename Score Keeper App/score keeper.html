@@ -18,6 +18,7 @@
 
         let score = 0;
         let wicket = 0;
+        let ballWiseResult = [];
 
         // function oneClick(){
         //     alert("1 is clicked")
@@ -41,15 +42,19 @@
 
         function addScore(num){
             if(wicket<10){
-            score += num;
-            rootElement.render(<App/>);
+                ballWiseResult.push(num)
+                score += num;
+                rootElement.render(<App/>);
+                console.log(ballWiseResult);
             }
         }
 
         function addWicket(){
             if(wicket<10){
+                ballWiseResult.push("W");
                 wicket +=1;
                 rootElement.render(<App/>);
+                console.log(ballWiseResult);
             }
         }
 
@@ -68,11 +73,31 @@
             </div>
         )
 
+        const BallWiseResult = () => (
+            <div>
+                {ballWiseResult.map((res, index) => (
+                    <React.Fragment key={index}>
+                    {index%6 === 0?<br/>:null}
+                    {/*<span key={index}>{res === 0 ? <strong>.</strong>: res}</span>&nbsp;&nbsp;&nbsp;*/}
+                    <span>{
+                        res === 0 ? <strong>.</strong>: (
+                            res === "W" ? 
+                            <span style = {{color : "#f00"}}>{res}</span>:
+                            <span style = {{color : "#00ff"}}>{res}</span>
+                            )
+                        }
+                    </span>&nbsp;&nbsp;&nbsp;
+                    </React.Fragment>
+                ))}
+            </div>
+        )
+        
         const App = () => (
             <>
             <h1>Score Keeper</h1>
             <h2>Score: {score}/{wicket}</h2>
             <ScoreButtons/>
+            <BallWiseResult/>
             </>
         )
 
