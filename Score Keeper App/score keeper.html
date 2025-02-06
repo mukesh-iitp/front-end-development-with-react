@@ -19,7 +19,9 @@
         let score = 0;
         let wicket = 0;
         let ballWiseResult = [];
-
+        let hit = 0;
+        let inputRef = React.createRef();
+        
         // function oneClick(){
         //     alert("1 is clicked")
         // }
@@ -41,21 +43,27 @@
         }
 
         function addScore(num){
-            if(wicket<10){
-                ballWiseResult.push(num)
-                score += num;
-                rootElement.render(<App/>);
-                console.log(ballWiseResult);
-            }
+            // if(wicket<10){
+            //     ballWiseResult.push(num)
+            //     score += num;
+            //     rootElement.render(<App/>);
+            //     console.log(ballWiseResult);
+            // }
+            
+            hit = num;
+            rootElement.render(<App/>);
         }
 
         function addWicket(){
-            if(wicket<10){
-                ballWiseResult.push("W");
-                wicket +=1;
-                rootElement.render(<App/>);
-                console.log(ballWiseResult);
-            }
+            // if(wicket<10){
+            //     ballWiseResult.push("W");
+            //     wicket +=1;
+            //     rootElement.render(<App/>);
+            //     console.log(ballWiseResult);
+            // }
+
+            hit = "w";
+            rootElement.render(<App/>);
         }
 
         const ScoreButtons = () =>(
@@ -92,12 +100,49 @@
             </div>
         )
         
+        function handleSubmit(event){
+            if(wicket<10){
+                event.preventDefault();
+                if(hit == "w" || hit == "W"){
+                    wicket += 1;
+                }
+                else{
+                    score += hit;
+                }
+                ballWiseResult.unshift(
+                    //<span>{hit}{", "}{inputRef.current.value}</span>
+                    <span>{`${hit}, ${inputRef.current.value}`}</span> //more professional way
+                );
+
+                hit=0;
+                inputRef.current.value="";
+                //console.log(ballWiseResult);
+                //console.log(inputRef.current.value);
+                rootElement.render(<App />);
+            }
+        }
+
+        const Form = () => (
+            <form>
+                <input value = {hit}/>
+                <input ref = {inputRef} placeholder = "add a comment"/>
+                <button onClick = {handleSubmit}>Submit</button>
+            </form>
+        )
+
         const App = () => (
             <>
             <h1>Score Keeper</h1>
             <h2>Score: {score}/{wicket}</h2>
             <ScoreButtons/>
-            <BallWiseResult/>
+            <br/>
+            <Form/>
+            <hr/>
+            {/*<BallWiseResult/>*/}
+            {ballWiseResult.map((res, index) => (
+                <p key = {index}> {res}
+                </p>
+            ))}
             </>
         )
 
