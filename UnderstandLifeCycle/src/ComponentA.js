@@ -1,4 +1,5 @@
 import React from "react";
+import ComponentB from "./ComponentB";
 
 class ComponentA extends React.Component{
     constructor(){
@@ -41,8 +42,10 @@ class ComponentA extends React.Component{
             {name : "setState() called in render()"}
         )// infinit loop because setState() implicitly call render function
         */
-        return(
+        return(<>
             <h1>{this.state.name}</h1>
+            <ComponentB/>
+            </>
         )
     }
 }
