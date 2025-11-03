@@ -1,11 +1,12 @@
 import React from "react";
-import ComponentB from "./ComponentB";
+//import ComponentB from "./ComponentB";
 
 class ComponentA extends React.Component{
     constructor(){
         super();
         this.state = {
-            name: "ComponentA"
+            name: "ComponentA",
+            data: []
         }
 
         console.log("ComponentA constructor")
@@ -33,6 +34,9 @@ class ComponentA extends React.Component{
         this.setState(
             {name : "setState() called in ComponentA componentDidMount()"}
         )
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(data => this.setState({data : data}))
     }
 
     render(){
@@ -42,9 +46,23 @@ class ComponentA extends React.Component{
             {name : "setState() called in render()"}
         )// infinit loop because setState() implicitly call render function
         */
+       console.log(this.state.data)
         return(<>
             <h1>{this.state.name}</h1>
-            <ComponentB/>
+            {/* <ComponentB/> */}
+            <ul>
+                {
+                    this.state.data.map((d,index) => {
+                        return(
+                            <li key={index}>
+                                {
+                                    d.username
+                                }
+                            </li>
+                        )
+                    })
+                }
+            </ul>
             </>
         )
     }
