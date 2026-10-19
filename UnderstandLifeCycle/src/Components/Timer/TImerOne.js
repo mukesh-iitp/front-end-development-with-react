@@ -21,7 +21,11 @@ class Timer extends React.Component{
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        return true;
+        console.log("TimerOne shouldComponentUpdate")
+        console.log(nextProps);
+        console.log(nextState);
+        console.log("________________________________")
+        return nextProps.timerOn !== this.props.timerOn || nextState.time %5 === 0;
     }
 
 
