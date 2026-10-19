@@ -65,6 +65,8 @@ class Timer extends React.Component{
     componentDidUpdate(){
         console.log("TimerOne componentDidUpdate")
         console.log("__________________________")
+        if(this.state.time ==10)
+            clearInterval(this.timer)
     }
 
 }
