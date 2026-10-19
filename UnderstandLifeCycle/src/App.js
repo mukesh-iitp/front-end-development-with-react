@@ -1,6 +1,8 @@
 import React from "react";
-// import ComponentA from "./Components/Component/ComponentA";
+import ComponentA from "./Components/Component/ComponentA";
+import ComponentB from "./Components/Component/ComponentB";
 import TimerOne from "./Components/Timer/TImerOne";
+import ErrorBoundary from "./ErrorBoundary";
 
 class App extends React.Component{
 
@@ -27,6 +29,14 @@ class App extends React.Component{
       <button onClick={this.handleMount}>{this.state.mount? "Un-Mount" : "Mount"}</button>
       {this.state.mount? <TimerOne timerOn={this.state.timerOn}/>:null}
       <button onClick={this.handleTimerOn}>{this.state.timerOn? "Stop":"Start"}</button>
+      <ErrorBoundary>
+        <ComponentA/>
+        {/* <ComponentB/>  if we write both component inside ErrorBoundary both will carsh if either will have error */}
+      </ErrorBoundary> 
+      <ErrorBoundary>
+        <ComponentB/> {/*separately bind the components*/}
+      </ErrorBoundary> 
+
       </>
     );
   }

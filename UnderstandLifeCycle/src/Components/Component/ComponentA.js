@@ -34,7 +34,7 @@ class ComponentA extends React.Component{
         // this.setState(
         //     {name : "setState() called in ComponentA componentDidMount()"}
         // )
-        fetch('https://jsonplaceholder.typicode.com/users')
+        fetch('https://jsonplaceholder.typicode.com/user')
             .then(response => response.json())
             .then(data => this.setState({data : data})) //or shortcut {data} only
     }
