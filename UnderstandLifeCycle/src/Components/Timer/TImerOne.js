@@ -54,23 +54,34 @@ class Timer extends React.Component{
             this.setState((prevState) => (
                 {time: prevState.time +1}
             ))
-        },1000);
+        //},1000);
+        },5000);
     }
 
     getSnapshotBeforeUpdate(prevPorps, prevState){
         console.log("TimerOne getSnapshotBeforeUpdate");
-        return null;
+        // return null;
+        return 5; //for demo purpose
     }
 
-    componentDidUpdate(){
+    // componentDidUpdate(){
+    //     console.log("TimerOne componentDidUpdate")
+    //     console.log("__________________________")
+    //     if(this.state.time === 10)
+    //         clearInterval(this.timer)
+    // }
+
+    componentDidUpdate(prevPorps,prevState,snapShot){ //arguments are optional
         console.log("TimerOne componentDidUpdate")
         console.log("__________________________")
-        if(this.state.time === 10)
-            clearInterval(this.timer)
+        console.log("Previous Props: ",prevPorps)
+        console.log("Previous State: ",prevState)
+        console.log("SnapShot from getSnapshotBeforeUpdate: ",snapShot)
     }
 
     componentWillUnmount(){
         console.log("TimerOne componentWillUnmount")
+        clearInterval(this.timer);
     }
 
 }
