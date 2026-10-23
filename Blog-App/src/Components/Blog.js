@@ -3,8 +3,11 @@ import {useState } from "react";
 //Blogging App using Hooks
 export default function Blog(){
 
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    //const [title, setTitle] = useState("");
+    //const [content, setContent] = useState("");
+    
+    const [formData, setFormData] = useState({title: "", content: ""}); // passing object in useState();
+
     const [blogs, setBlogs] = useState([]);
 
     
@@ -12,9 +15,10 @@ export default function Blog(){
     function handleSubmit(e){
         e.preventDefault();
 
-        setBlogs([{title,content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
-        setTitle(""); //for clearing title box after submit
-        setContent(""); //for clearing content box after submit
+        setBlogs([{title: formData.title,content:formData.content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
+        //setTitle(""); //for clearing title box after submit
+        //setContent(""); //for clearing content box after submit
+        setFormData({title:"",content:""})
         console.log(blogs);
     }
 
@@ -33,8 +37,10 @@ export default function Blog(){
                 <Row label="Title">
                         <input className="input"
                                 placeholder="Enter the Title of the Blog here.."
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
+                                // value={title}
+                                value={formData.title}
+                                // onChange={(e) => setTitle(e.target.value)}
+                                onChange={(e) => setFormData({title: e.target.value, content: formData.content})}
                         />
                 </Row >
 
@@ -42,8 +48,10 @@ export default function Blog(){
                 <Row label="Content">
                         <textarea className="input content"
                                 placeholder="Content of the Blog goes here.."
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
+                                // value={content}
+                                value={formData.content}
+                                //onChange={(e) => setContent(e.target.value)}
+                                onChange={(e) => setFormData({title: formData.title, content: e.target.value})}
                         />
                 </Row >
 
