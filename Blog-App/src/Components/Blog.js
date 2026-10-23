@@ -13,6 +13,8 @@ export default function Blog(){
         e.preventDefault();
 
         setBlogs([{title,content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
+        setTitle(""); //for clearing title box after submit
+        setContent(""); //for clearing content box after submit
         console.log(blogs);
     }
 
