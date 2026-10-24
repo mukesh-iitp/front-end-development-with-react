@@ -15,6 +15,12 @@ export default function Blog(){
     useEffect(() => {
         titleRef.current.focus()
     },[]) //will work as componentDidMount()
+
+    useEffect(() =>{
+        if(blogs.length){
+            document.title = blogs[0].title;
+        }
+    },[blogs]) //dependency added to make sure if blogs will change then this effect will take place
     
     //Passing the synthetic event as argument to stop refreshing the page on submit
     function handleSubmit(e){
