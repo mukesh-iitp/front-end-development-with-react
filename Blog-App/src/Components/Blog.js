@@ -1,4 +1,4 @@
-import {useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 
 //Blogging App using Hooks
 export default function Blog(){
@@ -12,6 +12,9 @@ export default function Blog(){
 
     const titleRef = useRef(null);
 
+    useEffect(() => {
+        titleRef.current.focus()
+    },[]) //will work as componentDidMount()
     
     //Passing the synthetic event as argument to stop refreshing the page on submit
     function handleSubmit(e){
