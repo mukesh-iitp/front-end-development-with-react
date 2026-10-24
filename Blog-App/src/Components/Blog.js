@@ -17,9 +17,11 @@ export default function Blog(){
     },[]) //will work as componentDidMount()
 
     useEffect(() =>{
-        if(blogs.length){
+        if(blogs.length && blogs[0].title){
             document.title = blogs[0].title;
         }
+        else
+            document.title = "No Blogs!!"
     },[blogs]) //dependency added to make sure if blogs will change then this effect will take place
     
     //Passing the synthetic event as argument to stop refreshing the page on submit
