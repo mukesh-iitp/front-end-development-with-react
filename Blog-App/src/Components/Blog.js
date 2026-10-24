@@ -1,4 +1,4 @@
-import {useState } from "react";
+import {useRef, useState } from "react";
 
 //Blogging App using Hooks
 export default function Blog(){
@@ -10,6 +10,8 @@ export default function Blog(){
 
     const [blogs, setBlogs] = useState([]);
 
+    const titleRef = useRef(null);
+
     
     //Passing the synthetic event as argument to stop refreshing the page on submit
     function handleSubmit(e){
@@ -18,6 +20,7 @@ export default function Blog(){
         setBlogs([{title: formData.title,content:formData.content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
         //setTitle(""); //for clearing title box after submit
         //setContent(""); //for clearing content box after submit
+        titleRef.current.focus();
         setFormData({title:"",content:""})
         console.log(blogs);
     }
@@ -41,6 +44,7 @@ export default function Blog(){
                 <Row label="Title">
                         <input className="input"
                                 placeholder="Enter the Title of the Blog here.."
+                                ref={titleRef}
                                 // value={title}
                                 value={formData.title}
                                 // onChange={(e) => setTitle(e.target.value)}
