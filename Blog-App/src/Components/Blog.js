@@ -70,6 +70,7 @@ export default function Blog(){
                                 // value={content}
                                 value={formData.content}
                                 //onChange={(e) => setContent(e.target.value)}
+                                required
                                 onChange={(e) => setFormData({title: formData.title, content: e.target.value})}
                         />
                 </Row >
