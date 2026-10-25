@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Login(){
    const [email,setEmail] = useState("");
    const [password, setPassword] = useState("");  
+
+    useEffect(() =>{
+      let email = localStorage.getItem("email");
+
+      if(email){
+        setEmail(email);
+      }
+    },[])//order of hooks is important
+
+    useEffect(() =>{
+      localStorage.setItem("email", email)
+    },[email])
+
+    useEffect(() =>{
+      let email = localStorage.getItem("email");
+
+      if(email){
+        setEmail(email);
+      }
+    },[])
 
     return(
         <>
