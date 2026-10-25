@@ -1,5 +1,6 @@
 import {useEffect, useReducer, useRef, useState } from "react";
 import { db } from "../firebaseinit";
+import { collection, addDoc } from "firebase/firestore";
 
 function blogReducer(state, action){
     switch(action.type){
@@ -15,6 +16,7 @@ function blogReducer(state, action){
 }
 
 //Blogging App using Hooks
+// export default function Blog(){
 export default function Blog(){
 
     //const [title, setTitle] = useState("");
@@ -40,7 +42,7 @@ export default function Blog(){
     },[blogs]) //dependency added to make sure if blogs will change then this effect will take place
     
     //Passing the synthetic event as argument to stop refreshing the page on submit
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
 
         // setBlogs([{title: formData.title,content:formData.content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
@@ -48,6 +50,15 @@ export default function Blog(){
         //setTitle(""); //for clearing title box after submit
         //setContent(""); //for clearing content box after submit
         titleRef.current.focus();
+
+        // Add a new document with a generated id.
+        const res = await addDoc(collection(db, "blogs"), {
+            title: formData.title,
+            content: formData.content,
+            createdOn: new Date()
+        });
+        console.log('Added document with ID: ', res.id);
+
         setFormData({title:"",content:""})
         console.log(blogs);
     }
