@@ -1,4 +1,17 @@
-import {useEffect, useRef, useState } from "react";
+import {useEffect, useReducer, useRef, useState } from "react";
+
+function blogReducer(state, action){
+    switch(action.type){
+        case "ADD":
+            return [action.blog, ...state];
+        
+        case "REMOVE":
+            return state.filter((blog, index) => index !== action.index);
+        
+        default:
+            return [];
+    }
+}
 
 //Blogging App using Hooks
 export default function Blog(){
@@ -8,7 +21,8 @@ export default function Blog(){
     
     const [formData, setFormData] = useState({title: "", content: ""}); // passing object in useState();
 
-    const [blogs, setBlogs] = useState([]);
+    // const [blogs, setBlogs] = useState([]);
+    const [blogs, dispatch] = useReducer(blogReducer, [])
 
     const titleRef = useRef(null);
 
@@ -28,7 +42,8 @@ export default function Blog(){
     function handleSubmit(e){
         e.preventDefault();
 
-        setBlogs([{title: formData.title,content:formData.content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
+        // setBlogs([{title: formData.title,content:formData.content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
+        dispatch({type:"ADD", blog:{title: formData.title,content:formData.content}});
         //setTitle(""); //for clearing title box after submit
         //setContent(""); //for clearing content box after submit
         titleRef.current.focus();
@@ -37,7 +52,8 @@ export default function Blog(){
     }
 
     function removeBlog(i){
-        setBlogs(blogs.filter((blog,index) => i!==index));
+        // setBlogs(blogs.filter((blog,index) => i!==index));
+        dispatch({type: "REMOVE", index: i});
     }
 
     return(
