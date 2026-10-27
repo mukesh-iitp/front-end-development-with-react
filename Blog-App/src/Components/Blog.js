@@ -1,6 +1,6 @@
 import {useEffect, useReducer, useRef, useState } from "react";
 import { db } from "../firebaseinit";
-import { collection , doc, getDocs, setDoc} from "firebase/firestore";
+import { collection , doc, setDoc, onSnapshot} from "firebase/firestore";
 
 function blogReducer(state, action){
     switch(action.type){
@@ -8,8 +8,8 @@ function blogReducer(state, action){
         case "GET":
             return action.blogs; // Loads Firestore blogs into state
 
-        case "ADD":
-            return [action.blog, ...state];
+        // case "ADD":
+        //     return [action.blog, ...state];
         
         case "REMOVE":
             return state.filter((blog, index) => index !== action.index);
@@ -40,9 +40,20 @@ export default function Blog(){
 
         //Get all documents in a collection
     useEffect(() =>{
-        async function fechData() {
-            const snapShot = await getDocs(collection(db, "blogs"))
-            console.log(snapShot)
+        // async function fechData() {
+        //     const snapShot = await getDocs(collection(db, "blogs"))
+        //     console.log(snapShot)
+        //     const blogs = snapShot.docs.map((doc) =>{
+        //         return{
+        //             id: doc.id,
+        //             ...doc.data()
+        //         }
+        //     })
+        //     console.log(blogs);
+        //     dispatch({ type: "GET", blogs: blogs });
+        // }
+        // fechData();
+        const unsub = onSnapshot(collection(db,"blogs"),(snapShot) =>{
             const blogs = snapShot.docs.map((doc) =>{
                 return{
                     id: doc.id,
@@ -51,8 +62,8 @@ export default function Blog(){
             })
             console.log(blogs);
             dispatch({ type: "GET", blogs: blogs });
-        }
-        fechData();
+        });
+
     },[]);
 
     useEffect(() =>{
@@ -69,7 +80,7 @@ export default function Blog(){
         e.preventDefault();
 
         // setBlogs([{title: formData.title,content:formData.content}, ...blogs]); // "..." rest operator used to gather multiple individual elements and consolidate them into a single collection (an array or an object) 
-        dispatch({type:"ADD", blog:{title: formData.title,content:formData.content}});
+        // dispatch({type:"ADD", blog:{title: formData.title,content:formData.content}});
         //setTitle(""); //for clearing title box after submit
         //setContent(""); //for clearing content box after submit
         titleRef.current.focus();
