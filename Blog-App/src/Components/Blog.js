@@ -1,9 +1,13 @@
 import {useEffect, useReducer, useRef, useState } from "react";
 import { db } from "../firebaseinit";
-import { collection, addDoc , doc} from "firebase/firestore";
+import { collection , doc, getDocs, setDoc} from "firebase/firestore";
 
 function blogReducer(state, action){
     switch(action.type){
+
+        case "GET":
+            return action.blogs; // Loads Firestore blogs into state
+
         case "ADD":
             return [action.blog, ...state];
         
@@ -11,7 +15,8 @@ function blogReducer(state, action){
             return state.filter((blog, index) => index !== action.index);
         
         default:
-            return [];
+            //return [];
+            return state;
     }
 }
 
@@ -33,6 +38,23 @@ export default function Blog(){
         titleRef.current.focus()
     },[]) //will work as componentDidMount()
 
+        //Get all documents in a collection
+    useEffect(() =>{
+        async function fechData() {
+            const snapShot = await getDocs(collection(db, "blogs"))
+            console.log(snapShot)
+            const blogs = snapShot.docs.map((doc) =>{
+                return{
+                    id: doc.id,
+                    ...doc.data()
+                }
+            })
+            console.log(blogs);
+            dispatch({ type: "GET", blogs: blogs });
+        }
+        fechData();
+    },[]);
+
     useEffect(() =>{
         if(blogs.length && blogs[0].title){
             document.title = blogs[0].title;
@@ -40,7 +62,8 @@ export default function Blog(){
         else
             document.title = "No Blogs!!"
     },[blogs]) //dependency added to make sure if blogs will change then this effect will take place
-    
+
+
     //Passing the synthetic event as argument to stop refreshing the page on submit
     async function handleSubmit(e){
         e.preventDefault();
@@ -56,12 +79,14 @@ export default function Blog(){
 
         // const res = await addDoc(collection(db, "blogs"), {
         // await addDoc(collection(db, "blogs"), {
-        await addDoc(docRef, {
+        // await addDoc(docRef, {
+        await setDoc(docRef, {
             title: formData.title,
             content: formData.content,
             createdOn: new Date()
         });
         // console.log('Added document with ID: ', res.id);
+        console.log('Added document with ID: ', docRef.id);
 
         setFormData({title:"",content:""})
         console.log(blogs);
