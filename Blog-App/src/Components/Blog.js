@@ -1,6 +1,6 @@
 import {useEffect, useReducer, useRef, useState } from "react";
 import { db } from "../firebaseinit";
-import { collection , doc, setDoc, onSnapshot} from "firebase/firestore";
+import { collection , doc, setDoc, onSnapshot, deleteDoc} from "firebase/firestore";
 
 function blogReducer(state, action){
     switch(action.type){
@@ -11,8 +11,8 @@ function blogReducer(state, action){
         // case "ADD":
         //     return [action.blog, ...state];
         
-        case "REMOVE":
-            return state.filter((blog, index) => index !== action.index);
+        // case "REMOVE":
+        //     return state.filter((blog, index) => index !== action.index);
         
         default:
             //return [];
@@ -53,7 +53,7 @@ export default function Blog(){
         //     dispatch({ type: "GET", blogs: blogs });
         // }
         // fechData();
-        const unsub = onSnapshot(collection(db,"blogs"),(snapShot) =>{
+        onSnapshot(collection(db,"blogs"),(snapShot) =>{
             const blogs = snapShot.docs.map((doc) =>{
                 return{
                     id: doc.id,
@@ -103,9 +103,12 @@ export default function Blog(){
         console.log(blogs);
     }
 
-    function removeBlog(i){
+    async function removeBlog(id){
         // setBlogs(blogs.filter((blog,index) => i!==index));
-        dispatch({type: "REMOVE", index: i});
+        // dispatch({type: "REMOVE", id : id});
+        const docRef = doc(db, "blogs", id);
+        await deleteDoc (docRef);
+        
     }
 
     return(
@@ -163,7 +166,7 @@ export default function Blog(){
 
                 <div className="blog-btn">
                     {/* <button onClick={removeBlog} className="btn remove"> */}
-                    <button onClick={() => removeBlog(i)} className="btn remove">
+                    <button onClick={() => removeBlog(blog.id)} className="btn remove">
                         Delete
                     </button>
                 </div>
