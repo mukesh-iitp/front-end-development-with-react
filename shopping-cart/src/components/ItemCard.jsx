@@ -7,17 +7,19 @@ function ItemCard({ name, price }) {
 
   // const value = useContext(itemContext);
   // const {setTotal} = value;
-  const {total, setTotal} = useContext(itemContext);
+  const {total, setTotal, item, setItem} = useContext(itemContext);
 
   const handleAdd = () => {
     setTotal(total+price)
+    setItem(item+1)
   };
 
   const handleRemove = () => {
     //setTotal(total-price)
-    if(total<=0)
+    if(total<=0 || item <=0)
       return
-    setTotal((prevState) => prevState - price);
+    setTotal((prevState) => prevState - price)
+    setItem(item -1)
   };
 
   return (
