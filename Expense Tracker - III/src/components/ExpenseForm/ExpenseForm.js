@@ -19,6 +19,8 @@ const ExpenseForm = (props) => {
       id: new Date().getTime()
     };
     // Add expense here
+    props.handleFormSubmit(expense)
+    
     clearInput();
     return;
   };
