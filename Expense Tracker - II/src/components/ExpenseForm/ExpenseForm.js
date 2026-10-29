@@ -2,12 +2,16 @@ import { useRef } from "react";
 import styles from "./ExpenseForm.module.css";
 
 const ExpenseForm = (props) => {
+  const { handleFormSubmit } = props;
   const expenseTextInput = useRef();
   const expenseAmountInput = useRef();
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // Logic to add expense here
+    handleFormSubmit(expenseTextInput.current.value, expenseAmountInput.current.value)
+    expenseTextInput.current.value = ""
+    expenseAmountInput.current.value = ""
   };
 
   return (
@@ -15,6 +19,7 @@ const ExpenseForm = (props) => {
       <h3>Add new transaction</h3>
       <label htmlFor="expenseText">Text</label>
       <input
+        ref={expenseTextInput}
         id="expenseText"
         className={styles.input}
         type="text"
@@ -26,6 +31,7 @@ const ExpenseForm = (props) => {
         <div>(negative - expense,positive-income)</div>
       </div>
       <input
+        ref={expenseAmountInput}
         className={styles.input}
         id="expenseAmount"
         type="number"

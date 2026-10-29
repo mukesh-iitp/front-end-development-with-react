@@ -3,7 +3,9 @@ import styles from "./Transaction.module.css";
 import EditImage from "../../images/edit.png";
 import DeleteImage from "../../images/trash-bin.png";
 
-const Transaction = ({ expense, index }) => {
+const Transaction = (props) => {
+  const { expense, index, deleteTransaction } = props;
+  console.log(expense, index)
   const [currentHoverIndex, setCurrentHoverIndex] = useState(null);
   return (
     <li
@@ -35,7 +37,7 @@ const Transaction = ({ expense, index }) => {
           <div className={styles.edit} onClick={() => {}}>
             <img src={EditImage} height="100%" alt="Edit" />
           </div>
-          <div className={styles.delete} onClick={() => {}}>
+          <div className={styles.delete} onClick={() => {deleteTransaction(index)}}>
             <img src={DeleteImage} height="100%" alt="Delete" />
           </div>
         </div>
