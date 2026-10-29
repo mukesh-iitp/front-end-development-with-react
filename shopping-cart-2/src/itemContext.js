@@ -21,7 +21,13 @@ function CustomItemContext({ children }) {
       setCart([...cart, { ...prod, qty: 1 }]);
       console.log(cart);
       setTotal(total + prod.price);
+    } else {
+      cart[index].qty++;
+      setCart(cart);
+      console.log(cart);
+      setTotal(total + cart[index].price);
     }
+    setItem(item + 1);
   };
 
   const handleRemove = (price) => {
@@ -43,7 +49,7 @@ function CustomItemContext({ children }) {
 
   return (
     <itemContext.Provider
-      value={{ total, item, handleAdd, handleRemove, clear, toggle }}
+      value={{ total, item, handleAdd, handleRemove, clear, toggle, cart }}
     >
       {showCart && <CartModal toggle={toggle} />}
       {children}
