@@ -12,10 +12,16 @@ function CustomItemContext({ children }) {
   const [total, setTotal] = useState(0);
   const [item, setItem] = useState(0);
   const [showCart, setShowCart] = useState(false);
+  const [cart, setCart] = useState([]);
 
-  const handleAdd = (price) => {
-    setTotal(total + price);
-    setItem(item + 1);
+  const handleAdd = (prod) => {
+    const index = cart.findIndex((item) => item.id === prod.id);
+
+    if (index === -1) {
+      setCart([...cart, { ...prod, qty: 1 }]);
+      console.log(cart);
+      setTotal(total + prod.price);
+    }
   };
 
   const handleRemove = (price) => {

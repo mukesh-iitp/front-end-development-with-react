@@ -1,5 +1,4 @@
 import React from "react";
-import { useValue } from "../itemContext";
 import styles from "../styles/CartModal.module.css";
 
 function CartModal({ toggle }) {
