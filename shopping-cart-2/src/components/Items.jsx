@@ -5,7 +5,6 @@ import itemData from "../data/itemData";
 function Items() {
   return (
     <div className={styles.wrapper}>
-      {/* <ItemCard name="Apple" price={199} /> */}
       {itemData.map((item) => (
         <ItemCard
           key={item.id}
