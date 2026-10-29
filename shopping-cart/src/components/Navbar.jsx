@@ -1,11 +1,14 @@
 import React from "react";
 import styles from "../styles/Total.module.css";
 import { useContext } from "react";
-import { itemContext } from "../itemContext";
-import { totalContext } from "../totalContext";
+// import { itemContext } from "../itemContext";
+// import { totalContext } from "../totalContext";
+import { useValue } from "../itemContext";
 
 function Navbar() {
-  const value = useContext(itemContext);
+  // const value = useContext(itemContext);
+  // const {item,total} = useValue();
+  const value = useValue();
   console.log(value);
   // const {item} = useContext(itemContext);
   // const {total} = useContext(totalContext);

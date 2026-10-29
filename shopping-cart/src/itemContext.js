@@ -1,6 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 const itemContext = createContext();
+
+function useValue(){
+    const value = useContext(itemContext);
+    return value;
+}
 
 //custom provider
 // function CustomItemContext(props){
@@ -17,5 +22,5 @@ function CustomItemContext({children}){
     )
 }
 
-export {itemContext};
+export {itemContext, useValue};
 export default CustomItemContext;
