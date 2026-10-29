@@ -19,7 +19,7 @@ const ParentComponent = (props) => {
         value={color}
       />
     {/* <colorContext.Provider value="red"> */}
-    <colorContext.Provider value={color}>
+    <colorContext.Provider value={{color, setColor}}>
       {/* <ChildComponent color={color} /> */}
       <ChildComponent/>
     </colorContext.Provider>
