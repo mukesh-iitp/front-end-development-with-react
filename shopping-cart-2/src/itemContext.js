@@ -30,17 +30,24 @@ function CustomItemContext({ children }) {
     setItem(item + 1);
   };
 
-  const handleRemove = (price) => {
-    if (total <= 0) {
-      return;
+  const handleRemove = (id) => {
+    const index = cart.findIndex((item) => item.id === id);
+
+    if (index !== -1) {
+      cart[index].qty--;
+      setItem(item - 1);
+      setTotal(total - cart[index].price);
+      if (cart[index].qty === 0) {
+        cart.splice(index, 1);
+      }
+      setCart(cart);
     }
-    setTotal((prevState) => prevState - price);
-    setItem(item - 1);
   };
 
   const clear = () => {
     setTotal(0);
     setItem(0);
+    setCart([]);
   };
 
   const toggle = () => {
