@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import firebase methods here
-import { doc, collection, addDoc, setDoc, getDocs } from "firebase/firestore";
+import { doc, collection, addDoc, setDoc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "./firebaseInit";
 
 const reducer = (state, action) => {
@@ -51,14 +51,20 @@ function App() {
 
   // create function to get expenses from firestore here
     const getData = async () => {
-    const snapshot = await getDocs(collection(db, "expenses"));
-    const expenses = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-        dispatch({ type: "GET_EXPENSES", payload: { expenses } });
-    toast.success("Expenses retrived successfully.");
-    };
+    const unsub = onSnapshot(collection(db, "expenses"), (snapshot) => {
+      const expenses = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      dispatch({ type: "GET_EXPENSES", payload: { expenses } });
+      toast.success("Expenses retrived successfully.");
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // use appropriate hook to get the expenses when app mounts
     useEffect(() => {
