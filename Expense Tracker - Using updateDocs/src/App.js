@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import firebase methods here
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseInit";
 
 const reducer = (state, action) => {
@@ -74,6 +74,8 @@ function App() {
     }
 
     // update expense in firestore here
+    const expenseRef = doc(db, "expenses", expense.id);
+    await updateDoc(expenseRef, expense);
 
     dispatch({ type: "UPDATE_EXPENSE", payload: { expensePos, expense } });
     toast.success("Expense updated successfully.");
