@@ -1,17 +1,17 @@
+// create firebase config here and export the db object
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDq0EnMGd-6qrcIZ0qUQvKxIDJV5uRvtKs",
-  authDomain: "test-project-559e1.firebaseapp.com",
-  projectId: "test-project-559e1",
-  storageBucket: "test-project-559e1.appspot.com",
-  messagingSenderId: "418042337809",
-  appId: "1:418042337809:web:e05f4adbfb8d9d02286fb0",
-  measurementId: "G-7DTEW2E7PY"
+  apiKey: "AIzaSyD5M2KRqYBVbXls2JW_PhgWVEUKcabxx-k",
+  authDomain: "transactions-196fb.firebaseapp.com",
+  projectId: "transactions-196fb",
+  storageBucket: "transactions-196fb.firebasestorage.app",
+  messagingSenderId: "936490926366",
+  appId: "1:936490926366:web:e68a411a76cabfa24a890f"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-export { db };
+export const db = getFirestore(app,"transactions");

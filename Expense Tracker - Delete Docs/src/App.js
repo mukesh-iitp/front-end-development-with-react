@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import firebase methods here
-import { doc, collection, addDoc, setDoc, getDocs } from "firebase/firestore";
+import { doc, collection, addDoc, setDoc, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseInit";
 
 const reducer = (state, action) => {
@@ -76,6 +76,8 @@ function App() {
 
   const deleteExpense = async (id) => {
     // delete expense from firestore here
+    const docRef = doc(db, "expenses", id);
+    await deleteDoc(docRef);
 
     dispatch({ type: "REMOVE_EXPENSE", payload: { id } });
     toast.success("Expense deleted successfully.");
