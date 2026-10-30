@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import "./App.css";
 
 // components imports
@@ -11,13 +11,18 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import firebase methods here
-import { doc, collection, addDoc, setDoc } from "firebase/firestore";
+import { doc, collection, addDoc, setDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebaseInit";
 
 const reducer = (state, action) => {
   const { payload } = action;
   switch (action.type) {
     // add cases to set retrived expenses to state here
+    case "GET_EXPENSES": {
+      return {
+        expenses: payload.expenses
+      };
+    }
     case "ADD_EXPENSE": {
       return {
         expenses: [payload.expense, ...state.expenses]
@@ -45,7 +50,20 @@ function App() {
   const [expenseToUpdate, setExpenseToUpdate] = useState(null);
 
   // create function to get expenses from firestore here
+    const getData = async () => {
+    const snapshot = await getDocs(collection(db, "expenses"));
+    const expenses = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+        dispatch({ type: "GET_EXPENSES", payload: { expenses } });
+    toast.success("Expenses retrived successfully.");
+    };
+
   // use appropriate hook to get the expenses when app mounts
+    useEffect(() => {
+    getData();
+  }, []);
 
   const addExpense = async (expense) => {
     const expenseRef = collection(db, "expenses");
