@@ -11,6 +11,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import firebase methods here
+import { doc, collection, addDoc, setDoc } from "firebase/firestore";
+import { db } from "./firebaseInit";
 
 const reducer = (state, action) => {
   const { payload } = action;
@@ -43,11 +45,13 @@ function App() {
 
   const addExpense = async (expense) => {
     // add expense to firestore here
+    const expenseRef = collection(db, "expenses");
+    const docRef = await addDoc(expenseRef, expense);
 
     dispatch({
       type: "ADD_EXPENSE",
       // add the new document id to the payload expense object below
-      payload: { expense: { ...expense } }
+      payload: { expense: { id: docRef.id, ...expense } }
     });
     toast.success("Expense added successfully.");
   };
@@ -72,6 +76,8 @@ function App() {
     }
 
     // update expense in firestore here
+    const expenseRef = doc(db, "expenses", expense.id);
+    await setDoc(expenseRef, expense);
 
     dispatch({ type: "UPDATE_EXPENSE", payload: { expensePos, expense } });
     toast.success("Expense updated successfully.");
