@@ -21,10 +21,20 @@ export const PostContextProvider = ({ children }) => {
   };
 
   // create a function to unsave post here
+  
+  const unsavePost = (post) => {
+    const isSaved = savedPosts.find((p) => p.id === post.id);
+    if (!isSaved) {
+      return alert("Post is not saved.");
+    }
+    const filteredPosts = savedPosts.filter((p) => p.id !== post.id);
+    setSavedPosts(filteredPosts);
+  };
+
 
   return (
     <postContext.Provider
-      value={{ savedPosts, setSavedPosts, resetPosts, savePost }}
+      value={{ savedPosts, setSavedPosts, resetPosts, savePost,unsavePost }}
     >
       {children}
     </postContext.Provider>
