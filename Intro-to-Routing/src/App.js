@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
-  createRoutesFromElements,
-  Route,
+  //createRoutesFromElements,
+  //Route,
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
@@ -28,8 +28,8 @@ function App() {
       element: <Navbar />,
       children: [
         { index: true, element: <Home /> },
-        { path: "/about", element: <About /> },
-        { path: "/items", element: <Items /> },
+        { path: "about", element: <About /> },
+        { path: "items", element: <Items /> },
       ],
     },
   ]);
