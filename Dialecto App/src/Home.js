@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { languageContext } from "./languageContext";
+
 const content = {
   English:
     "The cat sat lazily on the windowsill, basking in the warm sunshine and occasionally twitching its tail.",
@@ -9,15 +12,17 @@ const content = {
 
 export const Home = () => {
   // get language context here
+  const{language, setLanguage} = useContext(languageContext);
+
   return (
     <div>
       <div className="language-container">
         {/* add eventlister on the span to change the language prefrences  */}
-        <span>English</span>
-        <span>Hindi</span>
-        <span>Marathi</span>
+        <span onClick={() => setLanguage("English")}>English</span>
+        <span onClick={() => setLanguage("Hindi")}>Hindi</span>
+        <span onClick={() => setLanguage("Marathi")}>Marathi</span>
       </div>
-      <p>{/* Show active language content here */}</p>
+      <p>{content[language]}{/* Show active language content here */}</p>
     </div>
   );
 };

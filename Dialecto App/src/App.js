@@ -2,8 +2,10 @@ import "./styles.css";
 import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { Home } from "./Home";
-
 // get theme and language contexts here
+import { themeContext } from "./themeContext";
+import { languageContext } from "./languageContext";
+
 
 export default function App() {
   const [theme, setTheme] = useState("light");
@@ -12,8 +14,12 @@ export default function App() {
   return (
     <div className={`App ${theme}`}>
       {/* Add context provider here */}
-      <Navbar />
-      <Home />
+      <themeContext.Provider value={{theme,setTheme}}>
+        <languageContext.Provider value={{language,setLanguage}}>
+          <Navbar />
+          <Home />
+        </languageContext.Provider>
+      </themeContext.Provider>
     </div>
   );
 }
