@@ -1,4 +1,4 @@
-import { getLanguageValue } from "./languageContext";
+import { useLanguageValue } from "./languageContext";
 
 const content = {
   English:
@@ -10,7 +10,7 @@ const content = {
 };
 
 export const Home = () => {
-  const { language, setLanguage } = getLanguageValue();
+  const { language, setLanguage } = useLanguageValue();
 
   return (
     <div>
