@@ -1,7 +1,7 @@
 
 //action constraints
-const Add_TODO="ADD Todo";
-const TOGGLE_TODO="Toggle Todo"
+export const Add_TODO="ADD Todo";
+export const TOGGLE_TODO="Toggle Todo"
 
 //action creators
 export const addTodo = (text) => ({text, type: Add_TODO});
