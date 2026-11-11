@@ -1,7 +1,9 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { incrementTimer } from "../redux/actions/timerActions";
 
 export const Timer = () => {
+  const dispatch = useDispatch();
   const { isRunning, elapsedTime } = useSelector((state) => state);
 
   useEffect(() => {
@@ -9,12 +11,13 @@ export const Timer = () => {
     if (isRunning) {
       interval = setInterval(() => {
         // disptach incrementTimer action here
+        dispatch(incrementTimer())
       }, 1000);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [isRunning]);
+  }, [isRunning, dispatch]);
 
   return <b>{elapsedTime}</b>;
 };
