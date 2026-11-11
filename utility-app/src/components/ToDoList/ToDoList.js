@@ -11,7 +11,7 @@ function ToDoList() {
 
   // const todos=useSelector((state)=> state.todoReducer.todos);
   const todos = useSelector(todoSelector);
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   // const todos= store.getState().todos;
 
   useEffect(()=>{
@@ -22,7 +22,8 @@ function ToDoList() {
     //     })
     axios.get("http://localhost:4100/api/todos")
       .then(res=>{
-          console.log(res.data)
+          console.log(res.data);
+          dispatch(actions.setInitialState(res.data));
         })
   },[]);
 
@@ -38,7 +39,7 @@ function ToDoList() {
           // onClick={()=>{disptach(toggleTodo(index))}}
           onClick={()=>{
             // console.log("[Log]: Todo- Toggle Action dispatched")
-            disptach(actions.toggle(index))}}
+            dispatch(actions.toggle(index))}}
           >Toggle</button>
           </li>
       ))}
