@@ -1,7 +1,8 @@
 import "./NoteList.css";
+import { useSelector } from "react-redux";
 
 function NoteList() {
-    const notes=[];
+    const notes=useSelector((state) => state.noteReducer.notes);
   return (
     <div className="container">
     <ul>
