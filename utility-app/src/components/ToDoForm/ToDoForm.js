@@ -22,6 +22,7 @@ function ToDoForm() {
     e.preventDefault();
     setTodoText("");
     // disptach(addTodo(todoText));
+    // console.log("[Log]: Todo - Add Action dispatched");
     dispatch(actions.add(todoText));
   };
 
