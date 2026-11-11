@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./NoteForm.css";
+import { useDispatch } from "react-redux";
+import { addNote } from "../../redux/actions/noteActions";
 
 function NoteForm({ onCreateNote }) {
-  const [NoteText, setNoteText] = useState("");
+  const [noteText, setNoteText] = useState("");
+  const disptach = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreateNote(NoteText);
+    // onCreateNote(NoteText);
+    disptach(addNote(noteText));
     setNoteText("");
   };
 
@@ -17,7 +21,7 @@ function NoteForm({ onCreateNote }) {
       <textarea
         type="text"
         className="form-control mb-3"
-        value={NoteText}
+        value={noteText}
         onChange={(e) => setNoteText(e.target.value)}
       />
       <button className="btn btn-success float-end" type="submit">Create Note</button>
