@@ -21,9 +21,8 @@ function ToDoList() {
     //       console.log(parsedJson);
     //     })
     axios.get("http://localhost:4100/api/todos")
-      .then(res=>res.json())
-        .then(parsedResponse => {
-          console.log(parsedResponse)
+      .then(res=>{
+          console.log(res.data)
         })
   },[]);
 
