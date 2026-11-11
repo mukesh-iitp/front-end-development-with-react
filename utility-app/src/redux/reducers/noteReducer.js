@@ -23,9 +23,10 @@ export function noteReducer(state=initialState, action){
             }
         case DELETE_NOTE:
             state.notes.splice(action.index,1);
+            console.log(state.notes)
             return{
                 ...state,
-                notes: state.notes
+                notes: [...state.notes]
             }
         default:
             return state;
