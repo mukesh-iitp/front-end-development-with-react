@@ -22,11 +22,12 @@ const todoSlice = createSlice({
                 completed: false
             })
         },
-        toggle: (state, action)=> {
+        toggle: (state, action) => {
             state.todos.map((todo,i) => {
-                if(i==action.payload){
-                    todo.completed !=todo.completed;
+                if(i === action.payload){
+                    todo.completed = !todo.completed;
                 }
+                return todo;
             })
         }
     }
